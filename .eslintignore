@@ -1,0 +1,8 @@
+client/app/static
+
+*.html
+*.json
+*.sql
+*.scss
+*.svg
+*.png
