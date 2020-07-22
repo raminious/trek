@@ -17,41 +17,24 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "baseUrl": ".",
-    "outDir": "dist",
+    "outDir": "../dist/server",
     "lib": [
       "es6"
     ],
     "types": [
-      "node",
-      "mocha"
+      "node"
     ],
     "typeRoots": [
       "types",
       "node_modules/@types"
     ],
     "paths": {
-      "types/*": [
-        "types/*"
-      ],
-      "@db/*": [
-        "app/db/models/*"
-      ],
-      "@adapters/*": [
-        "app/adapters/*"
-      ],
-      "@constants/*": [
-        "app/constants/*"
-      ],
-      "@utils/*": [
-        "app/utils/*"
-      ],
-      "@libs/*": [
-        "app/libs/*"
+      "@app/*": [
+        "app/*"
       ]
     }
   },
   "include": [
-    "tools/**/*",
     "app/**/*",
     "types/**/*"
   ],

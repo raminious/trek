@@ -17,7 +17,7 @@ module.exports = {
     filename:
       process.env.NODE_ENV !== 'production' ? '[name].js' : '[name].[hash].js',
     chunkFilename: '[name].[chunkhash].js',
-    path: resolvePath('../dist'),
+    path: resolvePath('../../dist/web'),
     publicPath: '/'
   },
   resolve: {

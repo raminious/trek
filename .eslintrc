@@ -74,6 +74,8 @@
         "amd": true
       }
     ],
+    "import/no-extraneous-dependencies": "off",
+    "no-console": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "import/named": 2,

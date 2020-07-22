@@ -12,7 +12,7 @@ const config = {
   mode: 'production',
   devtool: false,
   entry: {
-    app: ['@babel/polyfill', path.resolve(__dirname, '../app')],
+    app: ['@babel/polyfill', path.resolve(__dirname, '../app/index.tsx')],
     vendor: ['react', 'react-dom']
   },
   optimization: {
@@ -49,7 +49,7 @@ const config = {
       patterns: [
         {
           from: path.resolve(__dirname, '../app/static'),
-          to: path.resolve(__dirname, '../dist/static')
+          to: path.resolve(__dirname, '../../dist/web/static')
         }
       ],
       options: {
