@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, lazy, Suspense } from 'react'
 
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import { Switch, Route } from 'react-router-dom'
 
 import { SideNav } from '@app/components/SideNav'
-import { Header } from '@app/components/Header'
-import { WebsitesPage, SessionsPage } from '@app/routes'
+import { PageAppBar } from '@app/components/AppBar'
+import { SuspenseFallback } from '@app/components/SuspenseFallback'
+
+const WebsitesPage = lazy(() => import('../../pages/Sites'))
+const SessionsPage = lazy(() => import('../../pages/Sessions'))
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -27,16 +30,18 @@ export function ApplicationLayout() {
 
   return (
     <div className={classes.root}>
-      <Header onDrawerToggle={handleDrawerToggle} />
+      <PageAppBar onDrawerToggle={handleDrawerToggle} />
       <SideNav isMenuOpen={isMenuOpen} onDrawerToggle={handleDrawerToggle} />
 
       <main className={classes.content}>
         <div className={classes.toolbar} />
 
-        <Switch>
-          <Route exact path="/dashboard/sites" component={WebsitesPage} />
-          <Route exact path="/dashboard/sessions" component={SessionsPage} />
-        </Switch>
+        <Suspense fallback={<SuspenseFallback />}>
+          <Switch>
+            <Route exact path="/dashboard/sites" component={WebsitesPage} />
+            <Route exact path="/dashboard/sessions" component={SessionsPage} />
+          </Switch>
+        </Suspense>
       </main>
     </div>
   )

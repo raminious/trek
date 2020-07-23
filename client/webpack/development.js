@@ -15,8 +15,8 @@ const config = {
   devServer: {
     port: 8088,
     compress: true,
-    inline: true,
     hot: true,
+    inline: true,
     historyApiFallback: {
       disableDotRule: true
     },

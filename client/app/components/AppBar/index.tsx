@@ -25,7 +25,7 @@ interface Props {
   onDrawerToggle: () => void
 }
 
-export function Header({ onDrawerToggle }: Props) {
+export function PageAppBar({ onDrawerToggle }: Props) {
   const classes = useStyles()
 
   return (

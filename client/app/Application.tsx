@@ -1,5 +1,4 @@
 import React from 'react'
-import { hot } from 'react-hot-loader/root'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import { ApplicationTheme } from './ApplicationTheme'
@@ -17,4 +16,4 @@ function Application() {
   )
 }
 
-export default hot(Application)
+export default Application
