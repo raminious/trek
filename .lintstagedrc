@@ -1,0 +1,5 @@
+{
+  "client/**/*.(js|ts|tsx|json)": "eslint --fix",
+  "client/**/*.(css)": "stylelint --syntax=css",
+  "server/**/*.(js|ts|json)": "eslint --fix"
+}

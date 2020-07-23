@@ -75,6 +75,7 @@
       }
     ],
     "import/no-extraneous-dependencies": "off",
+    "react/prop-types": "off",
     "no-console": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
@@ -98,5 +99,43 @@
         ]
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.ts",
+        "**/*.tsx"
+      ],
+      "rules": {
+        "no-unused-vars": [
+          "off"
+        ],
+        "no-undef": [
+          "off"
+        ],
+        "@typescript-eslint/no-unused-vars": [
+          2,
+          {
+            "args": "none"
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "**/*.d.ts"
+      ],
+      "rules": {
+        "react/jsx-no-duplicate-props": [
+          2,
+          {
+            "ignoreCase": false
+          }
+        ],
+        "react/no-multi-comp": [
+          "off"
+        ]
+      }
+    }
+  ]
 }
