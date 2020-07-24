@@ -23,6 +23,7 @@ import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded'
 import AddBoxRoundedIcon from '@material-ui/icons/AddBoxRounded'
 
 import { PageHeader } from '@app/components/PageHeader'
+import { useDialog } from '@app/hooks/use-dialog'
 
 const useStyles = makeStyles((theme: Theme) => ({
   table: {
@@ -43,15 +44,26 @@ function createData(name: string, domain: string) {
 export default function WebsitesPage() {
   useTitle('Trek | Websites')
   const classes = useStyles()
+  const dialog = useDialog()
 
   const rows = [
     createData('Production', 'https://my-awesome-website.com'),
     createData('Beta', 'https://beta.my-awesome-website.com')
   ]
 
+  const handleDelete = () => {
+    dialog.confirmation({
+      title: 'Are you sure you want delete this site?',
+      description:
+        "It will delete forever and you won't be able to undo this action",
+      confirmText: 'Confirm',
+      onConfirm: () => alert('')
+    })
+  }
+
   return (
     <div>
-      <PageHeader title="Websites">
+      <PageHeader title="Sites">
         <Button
           color="primary"
           variant="contained"
@@ -103,7 +115,7 @@ export default function WebsitesPage() {
                   </Tooltip>
 
                   <Tooltip title="Delete forever">
-                    <IconButton>
+                    <IconButton onClick={handleDelete}>
                       <DeleteRoundedIcon className={classes.settingsIcon} />
                     </IconButton>
                   </Tooltip>

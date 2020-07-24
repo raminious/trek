@@ -4,6 +4,7 @@ import { Divider, List } from '@material-ui/core'
 
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
+import DashboardRoundedIcon from '@material-ui/icons/DashboardRounded'
 import HttpRoundedIcon from '@material-ui/icons/HttpRounded'
 import TuneRoundedIcon from '@material-ui/icons/TuneRounded'
 import VideoLibraryRoundedIcon from '@material-ui/icons/VideoLibraryRounded'
@@ -25,6 +26,11 @@ export function MenuList() {
       <div className={classes.toolbar} />
       <Divider />
       <List>
+        <MenuItem
+          text="Dashboard"
+          url="/dashboard"
+          Icon={DashboardRoundedIcon}
+        />
         <MenuItem text="Sites" url="/dashboard/sites" Icon={HttpRoundedIcon} />
         <MenuItem
           text="Sessions"

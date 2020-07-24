@@ -16,6 +16,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     '& button': {
       marginLeft: theme.spacing(1)
     }
+  },
+  title: {
+    fontWeight: 500,
+    color: theme.palette.secondary.main
   }
 }))
 
@@ -24,7 +28,9 @@ export function PageHeader({ title, children }: Props) {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h5">{title}</Typography>
+      <Typography variant="h5" className={classes.title}>
+        {title}
+      </Typography>
       <div>{children}</div>
     </div>
   )
