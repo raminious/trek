@@ -1,0 +1,300 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 10,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    },
+    "allowImportExportEverywhere": true
+  },
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "plugins": [
+    "prettier",
+    "import",
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "prettier",
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [
+        ".ts"
+      ]
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".ts",
+          ".json"
+        ]
+      },
+      "typescript": {}
+    }
+  },
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "semi": false,
+        "singleQuote": true,
+        "printWidth": 80,
+        "tabWidth": 2
+      }
+    ],
+    "indent": "off",
+    "@typescript-eslint/indent": "off",
+    "import/no-unresolved": "error",
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      2,
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ],
+    "no-var": "error",
+    "semi": [
+      "error",
+      "never"
+    ],
+    "no-extra-semi": "error",
+    "prefer-const": "error",
+    "no-unused-vars": [
+      "error",
+      {
+        "vars": "all",
+        "args": "none"
+      }
+    ],
+    "no-console": "off",
+    "no-empty": [
+      "error",
+      {
+        "allowEmptyCatch": true
+      }
+    ],
+    "key-spacing": [
+      "error"
+    ],
+    "space-infix-ops": [
+      "error"
+    ],
+    "no-cond-assign": [
+      "error"
+    ],
+    "no-dupe-args": [
+      "error"
+    ],
+    "no-dupe-keys": [
+      "error"
+    ],
+    "no-duplicate-case": [
+      "error"
+    ],
+    "no-empty-character-class": [
+      "error"
+    ],
+    "no-extra-boolean-cast": [
+      "error"
+    ],
+    "no-obj-calls": [
+      "error"
+    ],
+    "no-unexpected-multiline": [
+      "error"
+    ],
+    "no-unreachable": [
+      "error"
+    ],
+    "no-unsafe-negation": [
+      "error"
+    ],
+    "use-isnan": [
+      "error"
+    ],
+    "valid-typeof": [
+      "error"
+    ],
+    "default-case": [
+      "error"
+    ],
+    "eqeqeq": [
+      "error"
+    ],
+    "no-alert": [
+      "error"
+    ],
+    "no-caller": [
+      "error"
+    ],
+    "no-case-declarations": [
+      "off"
+    ],
+    "no-else-return": [
+      "error"
+    ],
+    "no-eq-null": [
+      "error"
+    ],
+    "no-eval": [
+      "error"
+    ],
+    "no-extra-bind": [
+      "error"
+    ],
+    "no-extra-label": [
+      "error"
+    ],
+    "no-fallthrough": [
+      "error"
+    ],
+    "no-floating-decimal": [
+      "error"
+    ],
+    "no-global-assign": [
+      "error"
+    ],
+    "no-implicit-coercion": [
+      "error"
+    ],
+    "no-implicit-globals": [
+      "error"
+    ],
+    "yoda": [
+      "error"
+    ],
+    "no-with": [
+      "error"
+    ],
+    "no-void": [
+      "error"
+    ],
+    "no-useless-call": [
+      "error"
+    ],
+    "no-unused-labels": [
+      "error"
+    ],
+    "no-unmodified-loop-condition": [
+      "error"
+    ],
+    "no-sequences": [
+      "error"
+    ],
+    "no-self-compare": [
+      "error"
+    ],
+    "no-self-assign": [
+      "error"
+    ],
+    "no-return-assign": [
+      "error"
+    ],
+    "no-redeclare": [
+      "error"
+    ],
+    "no-proto": [
+      "error"
+    ],
+    "no-new": [
+      "error"
+    ],
+    "no-new-wrappers": [
+      "error"
+    ],
+    "no-new-func": [
+      "error"
+    ],
+    "no-multi-spaces": [
+      "error"
+    ],
+    "no-invalid-this": [
+      "error"
+    ],
+    "no-implied-eval": [
+      "error"
+    ],
+    "callback-return": 0,
+    "handle-callback-err": [
+      "error"
+    ],
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always-and-inside-groups",
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          [
+            "sibling",
+            "parent"
+          ],
+          "index"
+        ]
+      }
+    ],
+    "no-useless-catch": "off",
+    "import/named": "off",
+    "import/no-named-as-default": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/member-delimiter-style": "off",
+    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "require-atomic-updates": "off",
+    "@typescript-eslint/no-object-literal-type-assertion": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/class-name-casing": "off",
+    "@typescript-eslint/no-namespace": "off"
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.ts"
+      ],
+      "rules": {
+        "no-unused-vars": [
+          "off"
+        ],
+        "no-undef": [
+          "off"
+        ],
+        "@typescript-eslint/no-unused-vars": [
+          2,
+          {
+            "args": "none"
+          }
+        ],
+        "@typescript-eslint/no-explicit-any": [
+          "off"
+        ]
+      }
+    },
+    {
+      "files": [
+        "**/*.d.ts"
+      ],
+      "rules": {
+        "react/no-multi-comp": [
+          "off"
+        ]
+      }
+    }
+  ]
+}

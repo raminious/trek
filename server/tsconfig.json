@@ -29,6 +29,9 @@
       "node_modules/@types"
     ],
     "paths": {
+      "@types/*": [
+        "types/*"
+      ],
       "@app/*": [
         "app/*"
       ]
