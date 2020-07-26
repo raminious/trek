@@ -16,7 +16,7 @@
     "importHelpers": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "outDir": "../dist/server",
     "lib": [
       "es6"
@@ -29,8 +29,8 @@
       "node_modules/@types"
     ],
     "paths": {
-      "@types/*": [
-        "types/*"
+      "@types": [
+        "types"
       ],
       "@app/*": [
         "app/*"

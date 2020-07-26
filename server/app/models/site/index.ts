@@ -1,9 +1,9 @@
-// import { ObjectId } from '@types'
-
 import { Schema, Model, Document, model } from 'mongoose'
 
+import { ObjectId } from '@types'
+
 interface ISiteDocument extends Document {
-  _id: string
+  _id: ObjectId
   username: string
   secret: string
 }

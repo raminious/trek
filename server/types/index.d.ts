@@ -1,1 +1,1 @@
-export type ObjectId = 'string'
+export * from './common'

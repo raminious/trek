@@ -4,6 +4,10 @@ import express from 'express'
 import { ApolloServer, gql } from 'apollo-server-express'
 import dotenv from 'dotenv'
 
+// register alias paths after building the app
+import './alias'
+import 'module-alias/register'
+
 import './connectors/mongodb'
 
 dotenv.config()

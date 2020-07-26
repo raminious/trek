@@ -1,15 +1,16 @@
 {
   "parser": "@typescript-eslint/parser",
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "root": true,
   "parserOptions": {
     "ecmaVersion": 10,
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true
     },
     "allowImportExportEverywhere": true
-  },
-  "env": {
-    "es6": true,
-    "node": true
   },
   "plugins": [
     "prettier",
@@ -36,10 +37,19 @@
         "extensions": [
           ".js",
           ".ts",
+          ".d.ts",
           ".json"
+        ],
+        "alias": [
+          [
+            "@app",
+            "app"
+          ]
         ]
       },
-      "typescript": {}
+      "typescript": {
+        "directory": "./server/tsconfig.json"
+      }
     }
   },
   "rules": {
