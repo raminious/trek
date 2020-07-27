@@ -75,6 +75,7 @@
     "mongoose": "^5.9.25",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-hook-form": "^6.1.0",
     "react-router-dom": "^5.2.0",
     "react-use": "^15.3.2",
     "rimraf": "^3.0.2",

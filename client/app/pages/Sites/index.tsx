@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import {
@@ -35,6 +35,7 @@ import {
 import { PageHeader } from '@app/components/PageHeader'
 import { useDialog } from '@app/hooks/use-dialog'
 import { TableBodySkeleton } from '@app/components/TableSkeleton'
+import { SiteDrawer } from '@app/components/SiteDrawer'
 
 const useStyles = makeStyles((theme: Theme) => ({
   table: {
@@ -56,9 +57,22 @@ export default function WebsitesPage() {
   const classes = useStyles()
   const dialog = useDialog()
 
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+  const [selectedSite, setSelectedSite] = useState<ISite | null>(null)
+
   const { loading, error, data } = useQuery<ISiteQueryData>(GET_ALL_SITES_QUERY)
   const [updateSiteStatus] = useMutation(UPDATE_SITE_STATUS_MUTATION)
   const [deleteSite] = useMutation(DELETE_SITE_MUTATION)
+
+  const handleCloseDrawer = () => {
+    setIsDrawerOpen(false)
+    setSelectedSite(null)
+  }
+
+  const handleSelectSite = (site: ISite) => {
+    setIsDrawerOpen(true)
+    setSelectedSite(site)
+  }
 
   const handleDelete = (site: ISite) => {
     deleteSite({
@@ -124,6 +138,7 @@ export default function WebsitesPage() {
           color="primary"
           variant="contained"
           startIcon={<AddBoxRoundedIcon />}
+          onClick={() => setIsDrawerOpen(true)}
         >
           Add new website
         </Button>
@@ -181,9 +196,9 @@ export default function WebsitesPage() {
                     />
                   </TableCell>
 
-                  <TableCell component="th" scope="row">
+                  <TableCell component="th" scope="row" align="right">
                     <Tooltip title="Settings">
-                      <IconButton>
+                      <IconButton onClick={() => handleSelectSite(site)}>
                         <TuneRoundedIcon className={classes.settingsIcon} />
                       </IconButton>
                     </Tooltip>
@@ -199,6 +214,12 @@ export default function WebsitesPage() {
           </TableBody>
         </Table>
       </TableContainer>
+
+      <SiteDrawer
+        isOpen={isDrawerOpen}
+        site={selectedSite}
+        onClose={handleCloseDrawer}
+      />
     </div>
   )
 }
