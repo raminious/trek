@@ -1,7 +1,7 @@
 import path from 'path'
 
 import express from 'express'
-import { ApolloServer, gql } from 'apollo-server-express'
+import { ApolloServer } from 'apollo-server-express'
 import dotenv from 'dotenv'
 
 // register alias paths after building the app
@@ -9,20 +9,9 @@ import './alias'
 import 'module-alias/register'
 
 import './connectors/mongodb'
+import schema from '@app/graphql'
 
 dotenv.config()
-
-const typeDefs = gql`
-  type Query {
-    name: String
-  }
-`
-
-const resolvers = {
-  Query: {
-    name: () => 'Ramin',
-  },
-}
 
 const app = express()
 
@@ -38,8 +27,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // connect to Apollo Server
 new ApolloServer({
-  typeDefs,
-  resolvers,
+  schema,
   cacheControl: true,
   engine: {
     reportSchema: true,

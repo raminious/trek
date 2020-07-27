@@ -1,8 +1,6 @@
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 
-import Site from '@app/models/site'
-
 dotenv.config()
 
 const options = {
@@ -24,7 +22,5 @@ mongoose.connection.on(
 mongoose.connection.once('open', (): void => {
   console.log('[ + ] MongoDB Connected')
 })
-
-mongoose.models.Site = Site
 
 export default mongoose

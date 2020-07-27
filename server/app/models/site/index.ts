@@ -1,26 +1,28 @@
 import { Schema, Model, Document, model } from 'mongoose'
 
 import { ObjectId } from '@types'
+import { getMongooseDefaultSchema } from '@app/utils/mongoose-default-schema'
 
 interface ISiteDocument extends Document {
   _id: ObjectId
-  username: string
-  secret: string
+  name: string
+  domain: string
+  is_active: boolean
 }
 
 export interface ISite extends ISiteDocument {}
-
-export interface ISiteModel extends Model<ISite> {
-  getSite(name: string): Promise<ISite>
-}
+export interface ISiteModel extends Model<ISite> {}
 
 const SiteSchema: Schema = new Schema(
   {
-    username: {
+    name: {
       type: String,
     },
-    secret: {
+    domain: {
       type: String,
+    },
+    is_active: {
+      type: Boolean,
     },
   },
   {
@@ -28,12 +30,10 @@ const SiteSchema: Schema = new Schema(
   }
 )
 
-SiteSchema.statics.getSite = async function (
-  name: string
-): Promise<ISite | null> {
-  return this.findOne().where({ name })
-}
+const modelName = 'Site'
 
-const Site: ISiteModel = model<ISite, ISiteModel>('Site', SiteSchema)
-
-export default Site
+export const Site: ISiteModel = model<ISite, ISiteModel>(modelName, SiteSchema)
+export const { query, mutation } = getMongooseDefaultSchema<ISiteDocument>(
+  modelName,
+  Site
+)
