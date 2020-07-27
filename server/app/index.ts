@@ -17,17 +17,6 @@ dotenv.config()
 
 const app = express()
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.resolve(__dirname, '../web')))
-
-  app.get('/', (_, res) =>
-    res.sendFile(path.resolve(__dirname, '../index.html'))
-  )
-} else {
-  app.get('/', (_, res) => res.send('Trek is running...'))
-  app.use('/voyager', voyagerMiddleware({ endpointUrl: '/api' }))
-}
-
 // connect to Apollo Server
 new ApolloServer({
   schema,
@@ -40,8 +29,17 @@ new ApolloServer({
   path: '/api',
 })
 
-const port = 8088
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.resolve(__dirname, '../web')))
 
-app.listen(port, () =>
-  console.log(`[ + ] Trek is running at http://0.0.0.0:${port}`)
+  app.get('/', (_, res) =>
+    res.sendFile(path.resolve(__dirname, '../index.html'))
+  )
+} else {
+  app.get('/', (_, res) => res.send('Trek is running...'))
+  app.use('/voyager', voyagerMiddleware({ endpointUrl: '/api' }))
+}
+
+app.listen(process.env.PORT, () =>
+  console.log(`[ + ] Trek is running at http://0.0.0.0:${process.env.PORT}`)
 )

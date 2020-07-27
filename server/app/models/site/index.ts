@@ -7,7 +7,7 @@ interface ISiteDocument extends Document {
   _id: ObjectId
   name: string
   domain: string
-  is_active: boolean
+  isActive: boolean
 }
 
 export interface ISite extends ISiteDocument {}
@@ -21,7 +21,7 @@ const SiteSchema: Schema = new Schema(
     domain: {
       type: String,
     },
-    is_active: {
+    isActive: {
       type: Boolean,
       default: true,
     },

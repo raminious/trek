@@ -74,6 +74,9 @@
         "amd": true
       }
     ],
+    "no-shadow": "off",
+    "react/no-array-index-key": "off",
+    "no-underscore-dangle": "off",
     "import/no-extraneous-dependencies": "off",
     "react/prop-types": "off",
     "no-console": "off",

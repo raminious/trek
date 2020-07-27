@@ -8,6 +8,7 @@ import { DRAWER_WIDTH } from '@app/constants/drawers'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
+    backgroundColor: '#fff',
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${DRAWER_WIDTH}px)`,
       marginLeft: DRAWER_WIDTH

@@ -53,7 +53,8 @@ module.exports = {
       }
     }),
     new Dotenv({
-      safe: true
+      safe: true,
+      defaults: true
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '../app/index.html'),
