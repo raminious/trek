@@ -192,7 +192,7 @@ export default function WebsitesPage() {
                           }
                         />
                       }
-                      label="Active"
+                      label="Recording"
                     />
                   </TableCell>
 

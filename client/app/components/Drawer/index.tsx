@@ -9,11 +9,12 @@ import {
 
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded'
 
+export * from './Footer'
+
 interface Props {
   isOpen: boolean
   title: string
   children: React.ReactNode
-  renderFooter?: () => React.ReactNode
   onClose: () => void
 }
 
@@ -46,37 +47,36 @@ const useStyles = makeStyles(
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
-      flexGrow: 1
+      flexGrow: 1,
+      padding: theme.spacing(2, 2, 0, 2),
+      '& form': {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        flexBasis: '100%',
+        maxHeight: '100%'
+      }
     },
     content: {
       padding: theme.spacing(2)
-    },
-    footer: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
-      height: theme.spacing(7),
-      margin: theme.spacing(0, 2),
-      borderTop: `1px solid ${theme.palette.divider}`,
-      position: 'sticky',
-      bottom: 0,
-      backgroundColor: '#fff'
     }
   }),
   { name: 'OverlayDrawer' }
 )
 
-export function OverlayDrawer({
-  isOpen,
-  title,
-  children,
-  renderFooter,
-  onClose
-}: Props) {
+export function OverlayDrawer({ isOpen, title, children, onClose }: Props) {
   const classes = useStyles()
 
   return (
-    <Drawer classes={classes} open={isOpen} onClose={onClose} anchor="right">
+    <Drawer
+      classes={{
+        modal: classes.modal,
+        paper: classes.paper
+      }}
+      open={isOpen}
+      onClose={onClose}
+      anchor="right"
+    >
       <div className={classes.header}>
         <div>
           <Typography variant="h6" className={classes.headerTitle}>
@@ -91,10 +91,7 @@ export function OverlayDrawer({
         </div>
       </div>
 
-      <div className={classes.body}>
-        <div className={classes.content}>{children}</div>
-        {renderFooter && <div className={classes.footer}>{renderFooter()}</div>}
-      </div>
+      <div className={classes.body}>{children}</div>
     </Drawer>
   )
 }
