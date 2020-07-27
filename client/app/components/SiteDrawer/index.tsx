@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDeepCompareEffect } from 'react-use'
 
 import { Button, TextField } from '@material-ui/core'
 import { useSnackbar } from 'notistack'
@@ -11,7 +12,7 @@ import { OverlayDrawer, OverlayDrawerFooter } from '@app/components/Drawer'
 
 interface IFormInputs {
   name: string
-  domain: number
+  domain: string
 }
 
 interface Props {
@@ -27,9 +28,22 @@ const schema = yup.object().shape({
 
 export function SiteDrawer({ site, isOpen, onClose }: Props) {
   const { enqueueSnackbar } = useSnackbar()
-  const { handleSubmit, register, errors } = useForm<IFormInputs>({
+
+  const defaultValues = {
+    name: site?.name ?? '',
+    domain: site?.domain ?? ''
+  }
+
+  const { handleSubmit, register, errors, reset } = useForm<IFormInputs>({
+    defaultValues,
     resolver: yupResolver(schema)
   })
+
+  useDeepCompareEffect(() => {
+    if (isOpen) {
+      reset(defaultValues)
+    }
+  }, [isOpen, defaultValues])
 
   const onSubmit = (values: IFormInputs) => {
     enqueueSnackbar('Site created', { variant: 'success' })
@@ -37,7 +51,11 @@ export function SiteDrawer({ site, isOpen, onClose }: Props) {
 
   return (
     <>
-      <OverlayDrawer isOpen={isOpen} title="Add new Site" onClose={onClose}>
+      <OverlayDrawer
+        isOpen={isOpen}
+        title={site ? `Update "${site.name}"` : 'Add new Site'}
+        onClose={onClose}
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <TextField
@@ -59,6 +77,7 @@ export function SiteDrawer({ site, isOpen, onClose }: Props) {
               placeholder="https://"
               fullWidth
               margin="normal"
+              disabled={!!site}
               error={!!errors.domain}
               helperText={
                 errors.domain
@@ -71,7 +90,7 @@ export function SiteDrawer({ site, isOpen, onClose }: Props) {
 
           <OverlayDrawerFooter>
             <Button variant="contained" color="primary" type="submit">
-              Create
+              {site ? 'Update' : 'Create'}
             </Button>
           </OverlayDrawerFooter>
         </form>
