@@ -4,6 +4,8 @@ import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
 import dotenv from 'dotenv'
 
+import { express as voyagerMiddleware } from 'graphql-voyager/middleware'
+
 // register alias paths after building the app
 import './alias'
 import 'module-alias/register'
@@ -23,6 +25,7 @@ if (process.env.NODE_ENV === 'production') {
   )
 } else {
   app.get('/', (_, res) => res.send('Trek is running...'))
+  app.use('/voyager', voyagerMiddleware({ endpointUrl: '/api' }))
 }
 
 // connect to Apollo Server
