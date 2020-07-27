@@ -8,7 +8,7 @@ interface Props {
   children: React.ReactNode
 }
 
-export function ApplicationTheme({ children }: Props) {
+export function ApplicationThemeProvider({ children }: Props) {
   return (
     <>
       <CssBaseline />
