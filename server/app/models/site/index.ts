@@ -40,16 +40,4 @@ const { TC, query, mutation } = getMongooseDefaultSchema<ISiteDocument>(
   Site
 )
 
-TC.addResolver({
-  name: 'activeSites',
-  kind: 'mutation',
-  type: TC.getResolver('findMany').getType(),
-  args: TC.getResolver('findMany').getArgs(),
-  resolve: async ({ source, args, context, info }) => {
-    const sites = await Site.find(args.record).exec()
-
-    return sites
-  },
-})
-
 export { Site, TC, query, mutation }
