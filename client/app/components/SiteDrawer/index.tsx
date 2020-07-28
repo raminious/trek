@@ -21,6 +21,8 @@ interface Props {
   site: ISite | null
   isOpen: boolean
   onClose: () => void
+  onCreate: (site: ISite) => void
+  onUpdate: () => void
 }
 
 const schema = yup.object().shape({
@@ -28,7 +30,13 @@ const schema = yup.object().shape({
   domain: yup.string().url().required()
 })
 
-export function SiteDrawer({ site, isOpen, onClose }: Props) {
+export function SiteDrawer({
+  site,
+  isOpen,
+  onCreate,
+  onUpdate,
+  onClose
+}: Props) {
   const { enqueueSnackbar } = useSnackbar()
   const updateSite = useUpdateSite()
   const createSite = useCreateSite()
@@ -38,7 +46,9 @@ export function SiteDrawer({ site, isOpen, onClose }: Props) {
     domain: site?.domain ?? ''
   }
 
-  const { handleSubmit, register, errors, reset } = useForm<IFormInputs>({
+  const { handleSubmit, register, errors, formState, reset } = useForm<
+    IFormInputs
+  >({
     defaultValues,
     resolver: yupResolver(schema)
   })
@@ -55,6 +65,8 @@ export function SiteDrawer({ site, isOpen, onClose }: Props) {
         name
       })
 
+      onUpdate()
+
       enqueueSnackbar('Site updated', { variant: 'success' })
     } catch (e) {
       enqueueSnackbar('Could not update site. try again', { variant: 'error' })
@@ -63,21 +75,29 @@ export function SiteDrawer({ site, isOpen, onClose }: Props) {
 
   const handleCreateSite = async ({ name, domain }: IFormInputs) => {
     try {
-      await createSite({ name, domain })
+      const {
+        data: {
+          SiteCreateOne: { record }
+        }
+      } = await createSite({ name, domain })
+
+      onCreate(record)
 
       enqueueSnackbar('Site created', { variant: 'success' })
     } catch (e) {
-      enqueueSnackbar('Could not create site. try again', { variant: 'error' })
+      enqueueSnackbar(e.message || 'Could not create site. try again', {
+        variant: 'error'
+      })
     }
   }
 
-  const onSubmit = ({ name, domain }: IFormInputs) => {
+  const onSubmit = async ({ name, domain }: IFormInputs) => {
     if (site) {
-      handleUpdateSite({ name })
+      await handleUpdateSite({ name })
       return
     }
 
-    handleCreateSite({ name, domain })
+    await handleCreateSite({ name, domain })
   }
 
   return (
@@ -120,7 +140,12 @@ export function SiteDrawer({ site, isOpen, onClose }: Props) {
           </div>
 
           <OverlayDrawerFooter>
-            <Button variant="contained" color="primary" type="submit">
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              disabled={formState.isSubmitting}
+            >
               {site ? 'Update' : 'Create'}
             </Button>
           </OverlayDrawerFooter>

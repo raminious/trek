@@ -25,15 +25,18 @@ import { useQuery } from '@apollo/client'
 import TuneRoundedIcon from '@material-ui/icons/TuneRounded'
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded'
 import AddBoxRoundedIcon from '@material-ui/icons/AddBoxRounded'
+import CodeRoundedIcon from '@material-ui/icons/CodeRounded'
 
 import { GET_ALL_SITES_QUERY } from '@app/graphql/site'
+
+import { useDeleteSite } from '@app/hooks/site/use-delete-site'
+import { useUpdateSite } from '@app/hooks/site/use-update-site'
 
 import { PageHeader } from '@app/components/PageHeader'
 import { useDialog } from '@app/hooks/use-dialog'
 import { TableBodySkeleton } from '@app/components/TableSkeleton'
 import { SiteDrawer } from '@app/components/SiteDrawer'
-import { useDeleteSite } from '@app/hooks/site/use-delete-site'
-import { useUpdateSite } from '@app/hooks/site/use-update-site'
+import { SiteTrackingCodeModal } from '@app/components/SiteTrackingCodeModal'
 
 const useStyles = makeStyles((theme: Theme) => ({
   table: {
@@ -42,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   title: {
     fontWeight: 500
   },
-  settingsIcon: {
+  icon: {
     fontSize: theme.spacing(3)
   },
   alert: {
@@ -57,17 +60,13 @@ export default function WebsitesPage() {
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [selectedSite, setSelectedSite] = useState<ISite | null>(null)
+  const [showTrackingCode, setShowTrackingCode] = useState(false)
 
   const { loading, error, data } = useQuery<ISiteQueryData>(GET_ALL_SITES_QUERY)
   const updateSite = useUpdateSite()
   const deleteSite = useDeleteSite()
 
-  const handleCloseDrawer = () => {
-    setIsDrawerOpen(false)
-    setSelectedSite(null)
-  }
-
-  const handleSelectSite = (site: ISite) => {
+  const handleOpenSiteDrawer = (site: ISite) => {
     setIsDrawerOpen(true)
     setSelectedSite(site)
   }
@@ -90,6 +89,31 @@ export default function WebsitesPage() {
       confirmText: 'Confirm',
       onConfirm: () => handleDelete(site)
     })
+  }
+
+  const handleCloseDrawer = () => {
+    setIsDrawerOpen(false)
+    setSelectedSite(null)
+  }
+
+  const handleOpenTrackingCodeModal = (site: ISite) => {
+    setShowTrackingCode(true)
+    setSelectedSite(site)
+  }
+
+  const handleCloseTrackingCodeModal = () => {
+    setShowTrackingCode(false)
+    setSelectedSite(null)
+  }
+
+  const onCreateSite = (site: ISite) => {
+    setIsDrawerOpen(false)
+    setShowTrackingCode(true)
+    setSelectedSite(site)
+  }
+
+  const onUpdateSite = () => {
+    handleCloseDrawer()
   }
 
   return (
@@ -159,14 +183,22 @@ export default function WebsitesPage() {
 
                   <TableCell component="th" scope="row" align="right">
                     <Tooltip title="Settings">
-                      <IconButton onClick={() => handleSelectSite(site)}>
-                        <TuneRoundedIcon className={classes.settingsIcon} />
+                      <IconButton onClick={() => handleOpenSiteDrawer(site)}>
+                        <TuneRoundedIcon className={classes.icon} />
+                      </IconButton>
+                    </Tooltip>
+
+                    <Tooltip title="Tracking Script">
+                      <IconButton
+                        onClick={() => handleOpenTrackingCodeModal(site)}
+                      >
+                        <CodeRoundedIcon className={classes.icon} />
                       </IconButton>
                     </Tooltip>
 
                     <Tooltip title="Delete forever">
                       <IconButton onClick={() => requestDelete(site)}>
-                        <DeleteRoundedIcon className={classes.settingsIcon} />
+                        <DeleteRoundedIcon className={classes.icon} />
                       </IconButton>
                     </Tooltip>
                   </TableCell>
@@ -180,6 +212,14 @@ export default function WebsitesPage() {
         isOpen={isDrawerOpen}
         site={selectedSite}
         onClose={handleCloseDrawer}
+        onCreate={onCreateSite}
+        onUpdate={onUpdateSite}
+      />
+
+      <SiteTrackingCodeModal
+        site={selectedSite}
+        isOpen={showTrackingCode && !!selectedSite}
+        onClose={handleCloseTrackingCodeModal}
       />
     </div>
   )

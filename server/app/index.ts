@@ -29,6 +29,8 @@ new ApolloServer({
   path: '/api',
 })
 
+app.get('/tracking/trek.js', (_, res) => res.send('--- CODE ---'))
+
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.resolve(__dirname, '../web')))
 

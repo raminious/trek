@@ -20,6 +20,7 @@ const SiteSchema: Schema = new Schema(
     },
     domain: {
       type: String,
+      unique: true,
     },
     isActive: {
       type: Boolean,
