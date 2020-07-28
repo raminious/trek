@@ -9,6 +9,8 @@ import { yupResolver } from '@hookform/resolvers'
 import * as yup from 'yup'
 
 import { OverlayDrawer, OverlayDrawerFooter } from '@app/components/Drawer'
+import { useCreateSite } from '@app/hooks/site/use-create-site'
+import { useUpdateSite } from '@app/hooks/site/use-update-site'
 
 interface IFormInputs {
   name: string
@@ -28,6 +30,8 @@ const schema = yup.object().shape({
 
 export function SiteDrawer({ site, isOpen, onClose }: Props) {
   const { enqueueSnackbar } = useSnackbar()
+  const updateSite = useUpdateSite()
+  const createSite = useCreateSite()
 
   const defaultValues = {
     name: site?.name ?? '',
@@ -45,8 +49,35 @@ export function SiteDrawer({ site, isOpen, onClose }: Props) {
     }
   }, [isOpen, defaultValues])
 
-  const onSubmit = (values: IFormInputs) => {
-    enqueueSnackbar('Site created', { variant: 'success' })
+  const handleUpdateSite = async ({ name }: Partial<IFormInputs>) => {
+    try {
+      await updateSite(site!, {
+        name
+      })
+
+      enqueueSnackbar('Site updated', { variant: 'success' })
+    } catch (e) {
+      enqueueSnackbar('Could not update site. try again', { variant: 'error' })
+    }
+  }
+
+  const handleCreateSite = async ({ name, domain }: IFormInputs) => {
+    try {
+      await createSite({ name, domain })
+
+      enqueueSnackbar('Site created', { variant: 'success' })
+    } catch (e) {
+      enqueueSnackbar('Could not create site. try again', { variant: 'error' })
+    }
+  }
+
+  const onSubmit = ({ name, domain }: IFormInputs) => {
+    if (site) {
+      handleUpdateSite({ name })
+      return
+    }
+
+    handleCreateSite({ name, domain })
   }
 
   return (

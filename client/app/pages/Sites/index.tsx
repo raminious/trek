@@ -20,22 +20,20 @@ import Alert from '@material-ui/lab/Alert'
 
 import { useTitle } from 'react-use'
 
-import { useQuery, useMutation } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 
 import TuneRoundedIcon from '@material-ui/icons/TuneRounded'
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded'
 import AddBoxRoundedIcon from '@material-ui/icons/AddBoxRounded'
 
-import {
-  GET_ALL_SITES_QUERY,
-  UPDATE_SITE_STATUS_MUTATION,
-  DELETE_SITE_MUTATION
-} from '@app/graphql/site'
+import { GET_ALL_SITES_QUERY } from '@app/graphql/site'
 
 import { PageHeader } from '@app/components/PageHeader'
 import { useDialog } from '@app/hooks/use-dialog'
 import { TableBodySkeleton } from '@app/components/TableSkeleton'
 import { SiteDrawer } from '@app/components/SiteDrawer'
+import { useDeleteSite } from '@app/hooks/site/use-delete-site'
+import { useUpdateSite } from '@app/hooks/site/use-update-site'
 
 const useStyles = makeStyles((theme: Theme) => ({
   table: {
@@ -61,8 +59,8 @@ export default function WebsitesPage() {
   const [selectedSite, setSelectedSite] = useState<ISite | null>(null)
 
   const { loading, error, data } = useQuery<ISiteQueryData>(GET_ALL_SITES_QUERY)
-  const [updateSiteStatus] = useMutation(UPDATE_SITE_STATUS_MUTATION)
-  const [deleteSite] = useMutation(DELETE_SITE_MUTATION)
+  const updateSite = useUpdateSite()
+  const deleteSite = useDeleteSite()
 
   const handleCloseDrawer = () => {
     setIsDrawerOpen(false)
@@ -75,49 +73,12 @@ export default function WebsitesPage() {
   }
 
   const handleDelete = (site: ISite) => {
-    deleteSite({
-      variables: {
-        id: site._id
-      },
-      update(
-        proxy,
-        {
-          data: {
-            SiteRemoveById: { record }
-          }
-        }: {
-          data: ISiteMutationData
-        }
-      ) {
-        const data: ISiteQueryData | null = proxy.readQuery({
-          query: GET_ALL_SITES_QUERY
-        })
-
-        proxy.writeQuery({
-          query: GET_ALL_SITES_QUERY,
-          data: {
-            SiteMany: data?.SiteMany.filter(site => site._id !== record._id)
-          }
-        })
-      }
-    })
+    deleteSite(site._id)
   }
 
   const toggleSiteStatus = (site: ISite, checked: boolean) => {
-    updateSiteStatus({
-      variables: {
-        id: site._id,
-        status: checked
-      },
-      optimisticResponse: {
-        __typename: 'Mutation',
-        SiteUpdateById: {
-          record: {
-            ...site,
-            isActive: checked
-          }
-        }
-      }
+    updateSite(site, {
+      isActive: checked
     })
   }
 

@@ -11,9 +11,22 @@ export const GET_ALL_SITES_QUERY = gql`
   }
 `
 
-export const UPDATE_SITE_STATUS_MUTATION = gql`
-  mutation UpdateSiteStatus($id: MongoID!, $status: Boolean!) {
-    SiteUpdateById(record: { _id: $id, isActive: $status }) {
+export const CREATE_SITE_MUTATION = gql`
+  mutation CreateSite($record: CreateOneSiteInput!) {
+    SiteCreateOne(record: $record) {
+      record {
+        _id
+        name
+        domain
+        isActive
+      }
+    }
+  }
+`
+
+export const UPDATE_SITE_MUTATION = gql`
+  mutation UpdateSite($record: UpdateByIdSiteInput!) {
+    SiteUpdateById(record: $record) {
       record {
         _id
         name

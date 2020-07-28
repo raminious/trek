@@ -10,6 +10,9 @@ declare interface ISiteMutationData {
   SiteRemoveById: {
     record: Pick<ISite, '_id'>
   }
+  SiteCreateOne: {
+    record: ISite
+  }
 }
 
 declare interface ISite {
