@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES5",
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "rootDir": "src",
+    "outDir": "build",
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "downlevelIteration": true
+  },
+  "compileOnSave": true,
+  "include": [
+    "src/**/*.ts",
+    "types/**/*"
+  ]
+}
