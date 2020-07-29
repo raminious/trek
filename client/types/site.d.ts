@@ -3,6 +3,12 @@ declare interface ISiteQueryData {
   SiteMany: ISite[]
 }
 
+declare interface ISiteTrackingCodeQueryData {
+  SiteTrackingCode: {
+    code: string
+  }
+}
+
 declare interface ISiteMutationData {
   SiteUpdateById: {
     record: ISite

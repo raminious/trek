@@ -216,11 +216,12 @@ export default function WebsitesPage() {
         onUpdate={onUpdateSite}
       />
 
-      <SiteTrackingCodeModal
-        site={selectedSite}
-        isOpen={showTrackingCode && !!selectedSite}
-        onClose={handleCloseTrackingCodeModal}
-      />
+      {showTrackingCode && !!selectedSite && (
+        <SiteTrackingCodeModal
+          site={selectedSite}
+          onClose={handleCloseTrackingCodeModal}
+        />
+      )}
     </div>
   )
 }

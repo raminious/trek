@@ -15,26 +15,43 @@ import {
 import copy from 'clipboard-copy'
 import { useSnackbar } from 'notistack'
 
-import { getTrackingCode } from './helpers/get-code'
+import { useQuery } from '@apollo/client'
+
+import { GET_SITE_TRACKING_CODE_QUERY } from '@app/graphql/site'
 
 interface Props {
-  isOpen: boolean
-  site: ISite | null
+  site: ISite
   onClose: () => void
 }
 
-export function SiteTrackingCodeModal({ isOpen, site, onClose }: Props) {
+export function SiteTrackingCodeModal({ site, onClose }: Props) {
   const theme = useTheme<Theme>()
   const { enqueueSnackbar } = useSnackbar()
-  const snippet = getTrackingCode(site)
+  const { data, loading } = useQuery<ISiteTrackingCodeQueryData>(
+    GET_SITE_TRACKING_CODE_QUERY,
+    {
+      variables: {
+        id: site._id
+      }
+    }
+  )
+
+  const code =
+    data && !loading
+      ? `<script>\n${data.SiteTrackingCode.code}\n</script>`
+      : 'Generating...'
 
   const handleCopy = () => {
-    copy(snippet)
+    if (loading) {
+      return
+    }
+
+    copy(code)
     enqueueSnackbar('The code is copied!', { variant: 'success' })
   }
 
   return (
-    <Dialog keepMounted open={isOpen} onClose={onClose}>
+    <Dialog keepMounted open onClose={onClose}>
       <DialogTitle>Install Recording Script</DialogTitle>
       <DialogContent>
         <Typography variant="body1">
@@ -46,7 +63,7 @@ export function SiteTrackingCodeModal({ isOpen, site, onClose }: Props) {
           multiline
           fullWidth
           rows={15}
-          defaultValue={snippet}
+          value={code}
           variant="outlined"
           style={{
             margin: theme.spacing(2, 0)
