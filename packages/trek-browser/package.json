@@ -1,5 +1,5 @@
 {
-  "name": "trek-browser-testing",
+  "name": "trek-browser",
   "version": "1.4.0",
   "description": "track and monitor user activities",
   "private": false,
@@ -29,7 +29,7 @@
     "url": "https://github.com/raminious/trek/issues"
   },
   "homepage": "https://github.com/raminious/trek#browser",
-  "main": "es/trek/src/index.js",
+  "main": "lib/trek.js",
   "types": "es/trek/index.d.ts",
   "module": "es/trek/src/index.js",
   "unpkg": "dist/trek.js",
