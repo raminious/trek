@@ -1,6 +1,6 @@
 {
-  "name": "trek-browser",
-  "version": "1.4.0",
+  "name": "@trekapp/browser",
+  "version": "1.0.0-beta",
   "description": "track and monitor user activities",
   "private": false,
   "scripts": {
