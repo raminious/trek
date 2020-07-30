@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "ES2015",
     "target": "ES5",
     "noImplicitAny": true,
     "strictNullChecks": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "sourceMap": true,
+    "moduleResolution": "Node",
     "rootDir": "src",
-    "outDir": "build",
     "lib": [
       "es6",
       "dom"
@@ -17,7 +16,6 @@
   },
   "compileOnSave": true,
   "include": [
-    "src/**/*.ts",
-    "types/**/*"
+    "src/**/*"
   ]
 }

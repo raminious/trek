@@ -1,8 +1,7 @@
 {
-  "name": "trek-browser",
-  "version": "1.0.0",
+  "name": "trek-browser-testing",
+  "version": "1.4.0",
   "description": "track and monitor user activities",
-  "main": "lib/trek.js",
   "private": false,
   "scripts": {
     "clean": "rimraf dist/* && rimraf es/* && rimraf lib/*",
@@ -30,25 +29,26 @@
     "url": "https://github.com/raminious/trek/issues"
   },
   "homepage": "https://github.com/raminious/trek#browser",
+  "main": "es/trek/src/index.js",
+  "types": "es/trek/index.d.ts",
   "module": "es/trek/src/index.js",
   "unpkg": "dist/trek.js",
   "sideEffects": false,
-  "typings": "typings/entries/all.d.ts",
   "files": [
     "dist",
     "lib",
-    "es",
-    "typings"
+    "es"
   ],
   "dependencies": {
     "rrweb": "^0.8.5"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^14.0.0",
+    "@rollup/plugin-node-resolve": "^8.4.0",
+    "@rollup/plugin-typescript": "^5.0.2",
     "rimraf": "^3.0.2",
     "rollup": "^2.23.0",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^6.1.0",
-    "rollup-plugin-typescript": "^1.0.1"
+    "typescript": "^3.9.7"
   }
 }
