@@ -1,5 +1,7 @@
 import { recordOptions, eventWithTime } from 'rrweb/typings/types'
 
+declare type ObjectId = 'string'
+
 declare interface RecordOptions {
   siteKey: string
   serverUrl: string
@@ -7,7 +9,7 @@ declare interface RecordOptions {
 }
 
 declare interface Session {
-  _id: string
+  _id: ObjectId
 }
 
 export type { RecordOptions, Session }

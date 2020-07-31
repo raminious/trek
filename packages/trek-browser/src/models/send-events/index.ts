@@ -14,8 +14,6 @@ export function sendEvents(
   fetch(`${options.serverUrl}/track/${options.siteKey}/events`, {
     method: 'POST',
     mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json'
     },
