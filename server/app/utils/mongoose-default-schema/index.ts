@@ -1,5 +1,5 @@
 import { Document, Model } from 'mongoose'
-import { ObjectTypeComposer } from 'graphql-compose'
+import { ObjectTypeComposer, Resolver } from 'graphql-compose'
 
 import composeWithMongoose, {
   ComposeWithMongooseOpts,
@@ -14,10 +14,26 @@ export function getMongooseDefaultSchema<
   opts?: ComposeWithMongooseOpts<TContext>
 ): {
   TC: ObjectTypeComposer<TModel, TContext>
-  query: Record<string, any>
-  mutation: Record<string, any>
+  query: Record<string, Resolver>
+  mutation: Record<string, Resolver>
 } {
   const TC = composeWithMongoose(collectionModel, opts)
+
+  const query = {
+    [`${modelName}ById`]: TC.getResolver('findById'),
+    [`${modelName}ByIds`]: TC.getResolver('findByIds'),
+    [`${modelName}One`]: TC.getResolver('findOne'),
+    [`${modelName}Many`]: TC.getResolver('findMany').wrapResolve(
+      (next) => (resolveParams) =>
+        next({
+          ...resolveParams,
+          beforeQuery: (query) => query.lean(),
+        })
+    ),
+    [`${modelName}Count`]: TC.getResolver('count'),
+    [`${modelName}Connection`]: TC.getResolver('connection'),
+    [`${modelName}Pagination`]: TC.getResolver('pagination'),
+  }
 
   TC.addResolver({
     name: 'findOrCreate',
@@ -38,29 +54,10 @@ export function getMongooseDefaultSchema<
     },
   })
 
-  const query = {
-    [`${modelName}ById`]: TC.getResolver('findById'),
-    [`${modelName}ByIds`]: TC.getResolver('findByIds'),
-    [`${modelName}One`]: TC.getResolver('findOne'),
-    [`${modelName}Many`]: TC.getResolver('findMany').wrapResolve(
-      (next) => (resolveParams) =>
-        next({
-          ...resolveParams,
-          beforeQuery: (query) => query.lean(),
-        })
-    ),
-    [`${modelName}Count`]: TC.getResolver('count'),
-    [`${modelName}Connection`]: TC.getResolver('connection'),
-    [`${modelName}Pagination`]: TC.getResolver('pagination'),
-  }
-
   const mutation = {
     [`${modelName}FindOrCreate`]: TC.getResolver('findOrCreate'),
     [`${modelName}CreateOne`]: TC.getResolver('createOne'),
-    [`${modelName}CreateMany`]: TC.getResolver('createMany'),
     [`${modelName}UpdateById`]: TC.getResolver('updateById'),
-    [`${modelName}UpdateOne`]: TC.getResolver('updateOne'),
-    [`${modelName}UpdateMany`]: TC.getResolver('updateMany'),
     [`${modelName}RemoveById`]: TC.getResolver('removeById'),
     [`${modelName}RemoveOne`]: TC.getResolver('removeOne'),
     [`${modelName}RemoveMany`]: TC.getResolver('removeMany'),

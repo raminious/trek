@@ -27,7 +27,7 @@ interface Props {
 
 const schema = yup.object().shape({
   name: yup.string().min(3).max(15).required(),
-  domain: yup.string().url().required()
+  domain: yup.string().required()
 })
 
 export function SiteDrawer({
@@ -59,10 +59,11 @@ export function SiteDrawer({
     }
   }, [isOpen, defaultValues])
 
-  const handleUpdateSite = async ({ name }: Partial<IFormInputs>) => {
+  const handleUpdateSite = async ({ name, domain }: Partial<IFormInputs>) => {
     try {
       await updateSite(site!, {
-        name
+        name,
+        domain
       })
 
       onUpdate()
@@ -93,7 +94,7 @@ export function SiteDrawer({
 
   const onSubmit = async ({ name, domain }: IFormInputs) => {
     if (site) {
-      await handleUpdateSite({ name })
+      await handleUpdateSite({ name, domain })
       return
     }
 
@@ -128,7 +129,6 @@ export function SiteDrawer({
               placeholder="https://"
               fullWidth
               margin="normal"
-              disabled={!!site}
               error={!!errors.domain}
               helperText={
                 errors.domain

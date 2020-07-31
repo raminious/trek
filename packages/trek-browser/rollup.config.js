@@ -42,7 +42,7 @@ export default [
     ],
     input: 'src/index.ts',
     output: {
-      name: 'trekRecord',
+      name: 'Trek',
       file: pkg.unpkg.replace('.js', '.min.js'),
       format: 'iife',
       sourcemap: true

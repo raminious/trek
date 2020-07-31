@@ -140,7 +140,7 @@ export default function WebsitesPage() {
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
-              <TableCell>Domain</TableCell>
+              <TableCell>Domain (Origin)</TableCell>
               <TableCell />
               <TableCell />
             </TableRow>
