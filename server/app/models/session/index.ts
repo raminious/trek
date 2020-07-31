@@ -17,7 +17,7 @@ const SessionSchema: Schema = new Schema(
       type: Schema.Types.ObjectId,
       index: true,
     },
-    browser: {
+    client: {
       type: Object,
     },
     userAgent: String,

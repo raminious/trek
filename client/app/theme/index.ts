@@ -3,13 +3,29 @@ import { createMuiTheme } from '@material-ui/core'
 export const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#114B5F'
+      main: '#0B6E4F'
     },
     secondary: {
-      main: '#456990'
+      main: '#073B3A'
+    },
+    background: {
+      default: '#fff'
+    },
+    action: {
+      hoverOpacity: 0.05
     }
   },
   overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        body: {
+          backgroundColor: '#fff'
+        },
+        html: {
+          WebkitFontSmoothing: 'auto'
+        }
+      }
+    },
     MuiTooltip: {
       tooltip: {
         backgroundColor: '#262626',
@@ -28,3 +44,5 @@ export const theme = createMuiTheme({
     }
   }
 })
+
+console.log(theme)

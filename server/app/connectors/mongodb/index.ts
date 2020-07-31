@@ -13,6 +13,8 @@ const options = {
 
 mongoose.Promise = global.Promise
 
+// mongoose.set('debug', true)
+
 mongoose.connect(process.env.DATABASE_URL!, options)
 
 mongoose.connection.on(

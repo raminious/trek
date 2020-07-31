@@ -3,7 +3,7 @@ import { makeStyles, Theme, Typography } from '@material-ui/core'
 
 interface Props {
   title: string
-  children: React.ReactNode
+  children?: React.ReactNode
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -31,7 +31,7 @@ export function PageHeader({ title, children }: Props) {
       <Typography variant="h5" className={classes.title}>
         {title}
       </Typography>
-      <div>{children}</div>
+      {children && <div>{children}</div>}
     </div>
   )
 }

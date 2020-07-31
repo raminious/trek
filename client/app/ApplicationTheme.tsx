@@ -11,9 +11,9 @@ interface Props {
 export function ApplicationThemeProvider({ children }: Props) {
   return (
     <>
-      <CssBaseline />
       <StylesProvider injectFirst>
         <ThemeProvider theme={theme}>
+          <CssBaseline />
           <>{children}</>
         </ThemeProvider>
       </StylesProvider>

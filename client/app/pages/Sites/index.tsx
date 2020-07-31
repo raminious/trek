@@ -8,7 +8,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
   IconButton,
   Switch,
   FormControlLabel,
@@ -135,8 +134,8 @@ export default function WebsitesPage() {
         </Alert>
       )}
 
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="websites">
+      <TableContainer>
+        <Table className={classes.table} stickyHeader aria-label="websites">
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
@@ -151,11 +150,13 @@ export default function WebsitesPage() {
           <TableBody>
             {!loading &&
               data?.SiteMany.map(site => (
-                <TableRow key={site._id}>
+                <TableRow key={site._id} hover>
                   <TableCell component="th" scope="row">
                     <Typography variant="body1" className={classes.title}>
                       {site.name}
                     </Typography>
+
+                    <Typography variant="body2">Current workspace</Typography>
                   </TableCell>
 
                   <TableCell component="th" scope="row">

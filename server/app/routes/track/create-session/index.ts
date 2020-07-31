@@ -42,7 +42,7 @@ export default app.post(
 
     const record = new Session({
       site: site._id,
-      browser: Bowser.parse(agent),
+      client: Bowser.parse(agent),
       userAgent: agent,
       ip: req.ip,
     })
