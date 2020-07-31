@@ -11,14 +11,6 @@ export const GET_ALL_SITES_QUERY = gql`
   }
 `
 
-export const GET_SITE_TRACKING_CODE_QUERY = gql`
-  query GetTrackingCode($id: MongoID!) {
-    SiteTrackingCode(_id: $id) {
-      code
-    }
-  }
-`
-
 export const CREATE_SITE_MUTATION = gql`
   mutation CreateSite($record: CreateOneSiteInput!) {
     SiteCreateOne(record: $record) {

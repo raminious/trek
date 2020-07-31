@@ -9,7 +9,6 @@ import {
   query as eventQuery,
   mutation as eventMutation,
 } from '@app/models/event'
-import { query as trackingCodeQuery } from '@app/queries/tracking-code'
 
 const schema = new SchemaComposer()
 
@@ -18,7 +17,6 @@ schema.Query.addFields({
   ...siteQuery,
   ...sessionQuery,
   ...eventQuery,
-  ...trackingCodeQuery,
 })
 
 // create mutations

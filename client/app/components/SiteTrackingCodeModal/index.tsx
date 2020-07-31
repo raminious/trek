@@ -15,10 +15,6 @@ import {
 import copy from 'clipboard-copy'
 import { useSnackbar } from 'notistack'
 
-import { useQuery } from '@apollo/client'
-
-import { GET_SITE_TRACKING_CODE_QUERY } from '@app/graphql/site'
-
 interface Props {
   site: ISite
   onClose: () => void
@@ -27,25 +23,10 @@ interface Props {
 export function SiteTrackingCodeModal({ site, onClose }: Props) {
   const theme = useTheme<Theme>()
   const { enqueueSnackbar } = useSnackbar()
-  const { data, loading } = useQuery<ISiteTrackingCodeQueryData>(
-    GET_SITE_TRACKING_CODE_QUERY,
-    {
-      variables: {
-        id: site._id
-      }
-    }
-  )
 
-  const code =
-    data && !loading
-      ? `<script>\n${data.SiteTrackingCode.code}\n</script>`
-      : 'Generating...'
+  const code = `<script></script>`
 
   const handleCopy = () => {
-    if (loading) {
-      return
-    }
-
     copy(code)
     enqueueSnackbar('The code is copied!', { variant: 'success' })
   }
