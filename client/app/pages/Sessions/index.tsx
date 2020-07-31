@@ -7,18 +7,26 @@ import {
   TableCell,
   TableContainer,
   TableRow,
-  Paper
+  Paper,
+  Typography,
+  Button
 } from '@material-ui/core'
 import Alert from '@material-ui/lab/Alert'
+
+import PlayCircleOutlineRoundedIcon from '@material-ui/icons/PlayCircleOutlineRounded'
 
 import { useTitle } from 'react-use'
 import fecha from 'fecha'
 
 import { useQuery } from '@apollo/client'
 
+import { Link } from 'react-router-dom'
+
+import { GET_ALL_SESSIONS_QUERY } from '@app/graphql/session'
+
 import { PageHeader } from '@app/components/PageHeader'
 import { TableBodySkeleton } from '@app/components/TableSkeleton'
-import { GET_ALL_SESSIONS_QUERY } from '@app/graphql/session'
+import { EmptyState } from '@app/components/EmptyState'
 
 const useStyles = makeStyles((theme: Theme) => ({
   table: {
@@ -53,6 +61,13 @@ export default function SessionsPage() {
         </Alert>
       )}
 
+      {data?.SessionMany.length === 0 && (
+        <EmptyState
+          Icon={PlayCircleOutlineRoundedIcon}
+          title="Waiting for the first session"
+        />
+      )}
+
       <TableContainer component={Paper}>
         <Table className={classes.table} stickyHeader aria-label="websites">
           {loading && <TableBodySkeleton columns={4} rows={10} />}
@@ -62,10 +77,23 @@ export default function SessionsPage() {
               data?.SessionMany.map(session => (
                 <TableRow key={session._id} hover>
                   <TableCell component="th" scope="row">
-                    {fecha.format(
-                      new Date(session.createdAt),
-                      'YYYY-MM-DD HH:MM A'
-                    )}
+                    <Button
+                      color="primary"
+                      component={Link}
+                      startIcon={<PlayCircleOutlineRoundedIcon />}
+                      to={`/dashboard/sessions/${session._id}/replay`}
+                    >
+                      Replay
+                    </Button>
+                  </TableCell>
+
+                  <TableCell component="th" scope="row">
+                    <Typography variant="caption">
+                      {fecha.format(
+                        new Date(session.createdAt),
+                        'YYYY-MM-DD HH:MM A'
+                      )}
+                    </Typography>
                   </TableCell>
                 </TableRow>
               ))}

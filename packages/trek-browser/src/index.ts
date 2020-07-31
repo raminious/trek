@@ -36,7 +36,11 @@ export async function record(options: RecordOptions): Promise<void> {
   }
 
   // create session
-  session = await createSession(options)
+  try {
+    session = await createSession(options)
+  } catch (e) {
+    return
+  }
 
   // start recording
   recorderStopFn = start({

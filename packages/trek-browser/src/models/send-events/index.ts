@@ -18,7 +18,10 @@ export function sendEvents(
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      events,
+      events: events.map(event => ({
+        ...event,
+        data: JSON.stringify(event.data)
+      })),
       session: session._id
     })
   })

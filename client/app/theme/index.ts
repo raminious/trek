@@ -36,6 +36,11 @@ export const theme = createMuiTheme({
       arrow: {
         color: '#262626'
       }
+    },
+    MuiButton: {
+      root: {
+        textTransform: 'capitalize'
+      }
     }
   },
   props: {
@@ -44,5 +49,3 @@ export const theme = createMuiTheme({
     }
   }
 })
-
-console.log(theme)
